@@ -20,7 +20,7 @@ $afterTextDetails = $block->getAfterTextDetails();
 
     <?php if ($beforeTextDetails): ?>
         <div class="before-order-details">
-            <?= $escape->escapeHtml($beforeTextDetails, ['p', 'br', 'em', 'strong', 'u']) ?>
+            <?= $escaper->escapeHtml($beforeTextDetails, ['p', 'br', 'em', 'strong', 'u']) ?>
         </div>
     <?php endif ?>
 
@@ -37,7 +37,7 @@ $afterTextDetails = $block->getAfterTextDetails();
 
     <?php if ($afterTextDetails): ?>
         <div class="after-order-details">
-            <?= $escape->escapeHtml($afterTextDetails, ['p', 'br', 'em', 'strong', 'u']) ?>
+            <?= $escaper->escapeHtml($afterTextDetails, ['p', 'br', 'em', 'strong', 'u']) ?>
         </div>
     <?php endif ?>
 
