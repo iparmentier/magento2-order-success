@@ -18,10 +18,6 @@
                 <show_payment_method>1</show_payment_method>
                 <show_timeline>1</show_timeline>
             </general>
-            <timeline>
-                <show_estimated_delivery>1</show_estimated_delivery>
-                <estimated_delivery_days>3</estimated_delivery_days>
-            </timeline>
         </amadeco_order_success>
     </default>
 </config>
