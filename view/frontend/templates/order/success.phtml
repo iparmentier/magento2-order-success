@@ -1,0 +1,100 @@
+<?php
+/**
+ * Copyright © Amadeco. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Amadeco\OrderSuccess\Block\Order\Success $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$order = $block->getOrder();
+if (!$order || !$order->getIncrementId() || !$block->isEnabled()) {
+    return;
+}
+
+$beforeTextDetails = $block->getBeforeTextDetails();
+$afterTextDetails = $block->getAfterTextDetails();
+?>
+<div class="checkout-success">
+    <?= $block->getChildHtml('amadeco.order.timeline') ?>
+
+    <?php if ($beforeTextDetails): ?>
+        <div class="before-order-details">
+            <?= $escape->escapeHtml($beforeTextDetails, ['p', 'br', 'em', 'strong', 'u']) ?>
+        </div>
+    <?php endif ?>
+
+    <div class="success-header">
+        <p class="order-number">
+            <?= $escaper->escapeHtml(__('Your order number is: %1', $order->getIncrementId())) ?>
+        </p>
+        <p class="order-email">
+            <?= $escaper->escapeHtml(
+                __('We\'ll email you an order confirmation with details and tracking info.')
+            ) ?>
+        </p>
+    </div>
+
+    <?php if ($afterTextDetails): ?>
+        <div class="after-order-details">
+            <?= $escape->escapeHtml($afterTextDetails, ['p', 'br', 'em', 'strong', 'u']) ?>
+        </div>
+    <?php endif ?>
+
+    <?php if ($block->isCmsBlockEnabled()): ?>
+        <div class="cms-block">
+            <?= /* @noEscape */ $block->getCmsBlockDetails() ?>
+        </div>
+    <?php endif ?>
+
+    <?php
+        $orderInfoHtml = trim($block->getChildHtml('amadeco.order.info'));
+        $orderItemsHtml = trim($block->getChildHtml('amadeco.order.items'));
+    ?>
+    <?php if ($orderInfoHtml || $orderItemsHtml): ?>
+        <div class="order-details">
+            <h3><?= $escaper->escapeHtml(__('Order Summary')) ?></h3>
+
+            <?php if ($orderInfoHtml || $orderItemsHtml): ?>
+                <div class="order-details-grid">
+                    <?php if ($orderInfoHtml): ?>
+                        <div class="details-grid">
+                            <?= $block->getChildHtml('amadeco.order.info') ?>
+                        </div>
+                    <?php endif ?>
+
+                    <?php if ($orderItemsHtml): ?>
+                        <?= $block->getChildHtml('amadeco.order.items') ?>
+                    <?php endif ?>
+                </div>
+            <?php endif ?>
+        </div>
+    <?php endif ?>
+
+    <?php if ($block->isSecondCmsBlockEnabled()): ?>
+        <div class="cms-block">
+            <?= $block->getSecondCmsBlockDetails() ?>
+        </div>
+    <?php endif ?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <div class="actions-toolbar">
+        <?php if ($block->isCustomerLoggedIn()): ?>
+            <a class="action secondary"
+               href="<?= $escaper->escapeUrl($block->getViewOrderUrl()) ?>">
+                <span><?= $escaper->escapeHtml(__('View Order')) ?></span>
+            </a>
+            <a class="action secondary"
+               href="<?= $escaper->escapeUrl($block->getPrintUrl()) ?>"
+               target="_blank">
+                <span><?= $escaper->escapeHtml(__('Print Order')) ?></span>
+            </a>
+        <?php endif; ?>
+
+        <a class="action primary continue"
+           href="<?= $escaper->escapeUrl($block->getContinueUrl()) ?>">
+            <span><?= $escaper->escapeHtml(__('Continue Shopping')) ?></span>
+        </a>
+    </div>
+</div>

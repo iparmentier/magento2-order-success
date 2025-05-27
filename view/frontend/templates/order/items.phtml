@@ -1,0 +1,88 @@
+<?php
+/**
+ * Copyright © Amadeco. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Amadeco\OrderSuccess\Block\Order\Items $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+if (!$block->canShowItems()) {
+    return;
+}
+
+$items = $block->getItems();
+if (empty($items)) {
+    return;
+}
+?>
+<div class="order-items">
+    <div class="table-wrapper">
+        <table class="data table table-order-items" summary="<?= $escaper->escapeHtmlAttr(__('Items Ordered')) ?>">
+            <caption class="table-caption no-display"><?= $escaper->escapeHtml(__('Items Ordered')) ?></caption>
+            <thead>
+                <tr>
+                    <th class="col name"><?= $escaper->escapeHtml(__('Product Name')) ?></th>
+                    <th class="col sku"><?= $escaper->escapeHtml(__('SKU')) ?></th>
+                    <th class="col price"><?= $escaper->escapeHtml(__('Price')) ?></th>
+                    <th class="col qty"><?= $escaper->escapeHtml(__('Qty')) ?></th>
+                    <th class="col subtotal"><?= $escaper->escapeHtml(__('Subtotal')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php $items = $block->getItems(); ?>
+            <?php $giftMessage = ''?>
+            <?php foreach ($items as $item) :
+                if ($item->getParentItem()) :
+                    continue;
+                endif;
+                ?>
+                <tbody>
+                    <?= $block->getItemHtml($item) ?>
+
+                    <?php if ($this->helper(\Magento\GiftMessage\Helper\Message::class)->isMessagesAllowed('order_item', $item) && $item->getGiftMessageId()) : ?>
+                        <?php $giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)->getGiftMessageForEntity($item); ?>
+                        <tr>
+                            <td class="col options" colspan="5">
+                                <a href="#"
+                                    id="order-item-gift-message-link-<?= (int) $item->getId() ?>"
+                                    class="action show"
+                                    aria-controls="order-item-gift-message-<?= (int) $item->getId() ?>"
+                                    data-item-id="<?= (int) $item->getId() ?>">
+                                    <?= $escaper->escapeHtml(__('Gift Message')) ?>
+                                </a>
+                                <?php $giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)->getGiftMessageForEntity($item); ?>
+                                <div class="order-gift-message" id="order-item-gift-message-<?= (int) $item->getId() ?>" role="region" aria-expanded="false" tabindex="-1">
+                                    <a href="#"
+                                        title="<?= $escaper->escapeHtmlAttr(__('Close')) ?>"
+                                        aria-controls="order-item-gift-message-<?= (int) $item->getId() ?>"
+                                        data-item-id="<?= (int) $item->getId() ?>"
+                                        class="action close">
+                                        <?= $escaper->escapeHtml(__('Close')) ?>
+                                    </a>
+                                    <dl class="item-options">
+                                        <dt class="item-sender"><strong class="label"><?= $escaper->escapeHtml(__('From')) ?></strong><?= $escaper->escapeHtml($giftMessage->getSender()) ?></dt>
+                                        <dt class="item-recipient"><strong class="label"><?= $escaper->escapeHtml(__('To')) ?></strong><?= $escaper->escapeHtml($giftMessage->getRecipient()) ?></dt>
+                                        <dd class="item-message"><?= /* @noEscape */ $this->helper(\Magento\GiftMessage\Helper\Message::class)->getEscapedGiftMessage($item) ?></dd>
+                                    </dl>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif ?>
+                </tbody>
+            <?php endforeach; ?>
+            <tfoot>
+                <?= $block->getChildHtml('amadeco.order.totals') ?>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<?php if ($giftMessage) : ?>
+    <script type="text/x-magento-init">
+        {
+            "a.action.show, a.action.close": {
+                "giftMessage": {}
+            }
+        }
+    </script>
+<?php endif ?>

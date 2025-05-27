@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Amadeco. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amadeco_order_success>
+            <general>
+                <enabled>1</enabled>
+                <show_order_items>1</show_order_items>
+                <show_shipping_address>1</show_shipping_address>
+                <show_billing_address>1</show_billing_address>
+                <show_shipping_method>1</show_shipping_method>
+                <show_payment_method>1</show_payment_method>
+                <show_timeline>1</show_timeline>
+            </general>
+            <timeline>
+                <show_estimated_delivery>1</show_estimated_delivery>
+                <estimated_delivery_days>3</estimated_delivery_days>
+            </timeline>
+        </amadeco_order_success>
+    </default>
+</config>

@@ -1,0 +1,69 @@
+<?php
+/**
+ * Copyright © Amadeco. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Amadeco\OrderSuccess\Block\Order\Info $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$order = $block->getOrder();
+if (!$order) {
+    return;
+}
+?>
+<?php if ($block->canShowShippingAddress()): ?>
+    <div class="box shipping-address">
+        <h4 class="box-title"><?= $escaper->escapeHtml(__('Shipping Address')) ?></h4>
+        <div class="box-content">
+            <?php $shippingAddress = $block->getFormattedShippingAddress(); ?>
+            <?php if ($shippingAddress): ?>
+                <address><?= /* @noEscape */ $shippingAddress ?></address>
+            <?php else: ?>
+                <p><?= $escaper->escapeHtml(__('No shipping address available')) ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->canShowBillingAddress()): ?>
+    <div class="box billing-address">
+        <h4 class="box-title"><?= $escaper->escapeHtml(__('Billing Address')) ?></h4>
+        <div class="box-content">
+            <?php $billingAddress = $block->getFormattedBillingAddress(); ?>
+            <?php if ($billingAddress): ?>
+                <address><?= /* @noEscape */ $billingAddress ?></address>
+            <?php else: ?>
+                <p><?= $escaper->escapeHtml(__('No billing address available')) ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->canShowShippingMethod()): ?>
+    <div class="box shipping-method">
+        <h4 class="box-title"><?= $escaper->escapeHtml(__('Shipping Method')) ?></h4>
+        <div class="box-content">
+            <?php $shippingMethod = $block->getShippingMethod(); ?>
+            <?php if ($shippingMethod): ?>
+                <p><?= $escaper->escapeHtml($shippingMethod) ?></p>
+            <?php else: ?>
+                <p><?= $escaper->escapeHtml(__('No shipping method available')) ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($block->canShowPaymentMethod()): ?>
+    <div class="box payment-method">
+        <h4 class="box-title"><?= $escaper->escapeHtml(__('Payment Method')) ?></h4>
+        <div class="box-content">
+            <?php $paymentMethod = $block->getPaymentMethod(); ?>
+            <?php if ($paymentMethod): ?>
+                <?= $block->getPaymentInfoHtml() ?>
+            <?php else: ?>
+                <p><?= $escaper->escapeHtml(__('No payment method available')) ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

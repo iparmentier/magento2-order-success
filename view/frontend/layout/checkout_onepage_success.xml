@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Amadeco. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Amadeco_OrderSuccess::css/order-success.css"/>
+    </head>
+    <update handle="sales_order_item_price"/>
+    <body>
+        <referenceBlock name="checkout.success" remove="true"/>
+        <referenceContainer name="content">
+            <block class="Amadeco\OrderSuccess\Block\Order\Success" name="amadeco.order.success" template="Amadeco_OrderSuccess::order/success.phtml" cacheable="false">
+                <block class="Amadeco\OrderSuccess\Block\Order\Timeline" name="amadeco.order.timeline" template="Amadeco_OrderSuccess::order/timeline.phtml"/>
+                <block class="Amadeco\OrderSuccess\Block\Order\Info" name="amadeco.order.info" template="Amadeco_OrderSuccess::order/info.phtml"/>
+                <block class="Amadeco\OrderSuccess\Block\Order\Items" name="amadeco.order.items" template="Amadeco_OrderSuccess::order/items.phtml">
+                    <block class="Magento\Framework\View\Element\RendererList" name="sales.order.items.renderers" as="renderer.list">
+                        <block class="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" name="sales.order.items.renderers.default" as="default" template="Magento_Sales::order/items/renderer/default.phtml"/>
+                    </block>
+                    <block class="Magento\Sales\Block\Order\Totals" name="amadeco.order.totals" template="Magento_Sales::order/totals.phtml">
+                        <arguments>
+                            <argument name="label_properties" xsi:type="string">colspan="4" class="mark"</argument>
+                            <argument name="value_properties" xsi:type="string">class="amount"</argument>
+                        </arguments>
+                        <block class="Magento\Tax\Block\Sales\Order\Tax" name="amadeco.order.tax" template="Magento_Tax::order/tax.phtml">
+                            <action method="setIsPlaneMode">
+                                <argument name="value" xsi:type="string">1</argument>
+                            </action>
+                        </block>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+
+        <move element="order.success.additional.info" destination="amadeco.order.success" after="-" />
+    </body>
+</page>

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © Amadeco. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Amadeco\OrderSuccess\Block\Order\Timeline $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+if (!$block->canShowTimeline()) {
+    return;
+}
+
+$steps = $block->getTimelineSteps();
+if (empty($steps)) {
+    return;
+}
+?>
+<div class="order-timeline">
+    <ul class="opc-progress-bar">
+        <?php foreach ($steps as $step): ?>
+            <li class="<?= $escaper->escapeHtmlAttr($block->getStepCssClass($step)) ?>">
+                <span class="<?= $escaper->escapeHtmlAttr($block->getStepSpanCssClass($step)) ?>">
+                    <span class="step-title"><?= $escaper->escapeHtml($step['title']) ?></span>
+                </span>
+            </li>
+        <?php endforeach ?>
+    </ul>
+</div>

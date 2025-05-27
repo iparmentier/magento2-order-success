@@ -1,0 +1,28 @@
+{
+    "name": "amadeco/module-order-success",
+    "description": "Enhanced order success page with timeline and accurate order information",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Amadeco",
+            "email": "contact@amadeco.fr"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "magento/framework": "*",
+        "magento/module-checkout": "*",
+        "magento/module-sales": "*",
+        "magento/module-tax": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amadeco\\OrderSuccess\\": ""
+        }
+    }
+}
