@@ -1,13 +1,15 @@
 {
     "name": "amadeco/module-order-success",
-    "description": "Enhanced order success page with timeline and accurate order information",
     "type": "magento2-module",
     "version": "1.0.0",
-    "license": "proprietary",
+    "license": [
+        "OSL-3.0"
+    ],
+    "description": "Enhanced order success page with timeline and accurate order information",
     "authors": [
         {
-            "name": "Amadeco",
-            "email": "contact@amadeco.fr"
+            "name": "Ilan Parmentier",
+            "email": "dev@amadeco.fr"
         }
     ],
     "require": {
