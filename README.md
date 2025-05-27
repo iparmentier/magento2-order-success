@@ -11,7 +11,7 @@ This module by Amadeco enhances the Magento 2 order confirmation page by adding 
 
 ## Features
 
-<img width="1200" alt="Enhanced success page with timeline and order summary" src="https://github.com/user-attachments/assets/screenshot-order-success.png" />
+<img width="1147" alt="Screenshot" src="https://github.com/user-attachments/assets/2108eb60-5ed9-41dd-b641-30d63e785c15" />
 
 ### 🎯 Complete Order Summary
 - **Detailed item breakdown** with prices, quantities, and properly displayed VAT
@@ -145,7 +145,6 @@ Amadeco/OrderSuccess/
 
 - **Native VAT handling**: Uses `Magento\Tax\Block\Sales\Order\Tax` block
 - **Dynamic timeline**: Based on Magento order states (`STATE_NEW`, `STATE_PROCESSING`, etc.)
-- **Optimized performance**: Caching disabled only on success page
 - **Responsive design**: Adaptive CSS for mobile and desktop
 
 ## Support and Contribution
@@ -156,4 +155,4 @@ For questions or improvement suggestions:
 
 ## License
 
-This module is under proprietary license. See [LICENSE.txt](LICENSE.txt) file for details.
+This module is licensed under the Open Software License ("OSL") v3.0. See the [LICENSE.txt](LICENSE.txt) file for details.
