@@ -9,6 +9,8 @@
 
 This module by Amadeco enhances the Magento 2 order confirmation page by adding a detailed summary and visual timeline, based on Baymard Institute recommendations to optimize the post-purchase experience.
 
+Based on [order-information-on-success-page-m2](https://github.com/mavenbird/order-information-on-success-page-m2)
+
 ## Features
 
 <img width="1147" alt="Screenshot" src="https://github.com/user-attachments/assets/2108eb60-5ed9-41dd-b641-30d63e785c15" />
