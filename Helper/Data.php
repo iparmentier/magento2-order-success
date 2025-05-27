@@ -32,8 +32,8 @@ class Data extends AbstractHelper
     private const XML_PATH_TEXT_AFTER = 'amadeco_order_success/after_config/text_after';
     private const XML_PATH_ENABLE_CMS_BLOCK = 'amadeco_order_success/custom_block_config/enable_cms_block';
     private const XML_PATH_CMS_BLOCK ='amadeco_order_success/custom_block_config/cms_block';
-    private const XML_PATH_ENABLE_CMS_BLOCK_2 = 'amadeco_order_success/custom_block_config/enable_cms_block_2';
-    private const XML_PATH_CMS_BLOCK_2 ='amadeco_order_success/custom_block_config/cms_block_2';
+    private const XML_PATH_ENABLE_SECOND_CMS_BLOCK = 'amadeco_order_success/custom_block_config/enable_second_cms_block';
+    private const XML_PATH_SECOND_CMS_BLOCK ='amadeco_order_success/custom_block_config/second_cms_block';
 
     /**
      * Check if module is enabled
@@ -164,7 +164,7 @@ class Data extends AbstractHelper
      */
     public function isSecondCmsBlockEnabled($scope = ScopeInterface::SCOPE_STORE): bool
     {
-        return $this->scopeConfig->isSetFlag(self::XML_PATH_ENABLE_CMS_BLOCK_2, $scope);
+        return $this->scopeConfig->isSetFlag(self::XML_PATH_ENABLE_SECOND_CMS_BLOCK, $scope);
     }
 
     /**
@@ -175,6 +175,6 @@ class Data extends AbstractHelper
      */
     public function getSecondCmsBlockDetails($scope = ScopeInterface::SCOPE_STORE): ?string
     {
-        return $this->scopeConfig->getValue(self::XML_PATH_CMS_BLOCK_2, $scope);
+        return $this->scopeConfig->getValue(self::XML_PATH_SECOND_CMS_BLOCK, $scope);
     }
 }
