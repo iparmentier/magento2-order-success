@@ -101,7 +101,13 @@ class Success extends Template
     public function getPrintUrl(): string
     {
         $order = $this->getOrder();
-        return $order ? $this->getUrl('sales/order/print', ['order_id' => $order->getId()]) : '';
+        if (!$order) {
+            return '';
+        }
+        if (!$this->isCustomerLoggedIn()) {
+            return $this->getUrl('sales/guest/print', ['order_id' => $order->getId()]);
+        }
+        return $this->getUrl('sales/order/print', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -112,7 +118,13 @@ class Success extends Template
     public function getReorderUrl(): string
     {
         $order = $this->getOrder();
-        return $order ? $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]) : '';
+        if (!$order) {
+            return '';
+        }
+        if (!$this->isCustomerLoggedIn()) {
+            return $this->getUrl('sales/guest/reorder', ['order_id' => $order->getId()]);
+        }
+        return $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]);
     }
 
     /**
@@ -123,7 +135,13 @@ class Success extends Template
     public function getViewOrderUrl(): string
     {
         $order = $this->getOrder();
-        return $order ? $this->getUrl('sales/order/view', ['order_id' => $order->getId()]) : '';
+        if (!$order) {
+            return '';
+        }
+        if (!$this->isCustomerLoggedIn()) {
+            return $this->getUrl('sales/guest/view', ['order_id' => $order->getId()]);
+        }
+        return $this->getUrl('sales/order/view', ['order_id' => $order->getId()]);
     }
 
     /**
