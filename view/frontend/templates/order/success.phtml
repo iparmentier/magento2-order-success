@@ -76,11 +76,11 @@ $afterTextDetails = $block->getAfterTextDetails();
     <?= $block->getAdditionalInfoHtml() ?>
 
     <div class="actions-toolbar">
-        <a class="action secondary"
+        <a class="action secondary view-order"
             href="<?= $escaper->escapeUrl($block->getViewOrderUrl()) ?>">
             <span><?= $escaper->escapeHtml(__('View Order')) ?></span>
         </a>
-        <a class="action secondary"
+        <a class="action secondary print-order"
             href="<?= $escaper->escapeUrl($block->getPrintUrl()) ?>"
             target="_blank">
             <span><?= $escaper->escapeHtml(__('Print Order')) ?></span>
