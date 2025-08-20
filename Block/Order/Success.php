@@ -61,6 +61,20 @@ class Success extends Template
     }
 
     /**
+     * Prevent displaying if order is not populated or block is disabled
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        $order = $this->getOrder();
+        if (!$order || !$order->getIncrementId() || !$this->isEnabled()) {
+            return '';
+        }
+        return parent::_toHtml();
+    }
+
+    /**
      * Check if module is enabled
      *
      * @return bool
@@ -100,8 +114,10 @@ class Success extends Template
      */
     public function getPrintUrl(): string
     {
-        $order = $this->getOrder();
-        return $order ? $this->getUrl('sales/order/print', ['order_id' => $order->getId()]) : '';
+        if (!$this->isCustomerLoggedIn()) {
+            return $this->getUrl('sales/guest/print', ['order_id' => $this->getOrder()->getId()]);
+        }
+        return $this->getUrl('sales/order/print', ['order_id' => $this->getOrder()->getId()]);
     }
 
     /**
@@ -111,8 +127,10 @@ class Success extends Template
      */
     public function getReorderUrl(): string
     {
-        $order = $this->getOrder();
-        return $order ? $this->getUrl('sales/order/reorder', ['order_id' => $order->getId()]) : '';
+        if (!$this->isCustomerLoggedIn()) {
+            return $this->getUrl('sales/guest/reorder', ['order_id' => $this->getOrder()->getId()]);
+        }
+        return $this->getUrl('sales/order/reorder', ['order_id' => $this->getOrder()->getId()]);
     }
 
     /**
@@ -122,8 +140,10 @@ class Success extends Template
      */
     public function getViewOrderUrl(): string
     {
-        $order = $this->getOrder();
-        return $order ? $this->getUrl('sales/order/view', ['order_id' => $order->getId()]) : '';
+        if (!$this->isCustomerLoggedIn()) {
+            return $this->getUrl('sales/guest/view', ['order_id' => $this->getOrder()->getId()]);
+        }
+        return $this->getUrl('sales/order/view', ['order_id' => $this->getOrder()->getId()]);
     }
 
     /**

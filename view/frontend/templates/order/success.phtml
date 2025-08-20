@@ -4,14 +4,10 @@
  * See COPYING.txt for license details.
  */
 
-/** @var \Amadeco\OrderSuccess\Block\Order\Success $block */
 /** @var \Magento\Framework\Escaper $escaper */
+/** @var \Amadeco\OrderSuccess\Block\Order\Success $block */
 
 $order = $block->getOrder();
-if (!$order || !$order->getIncrementId() || !$block->isEnabled()) {
-    return;
-}
-
 $beforeTextDetails = $block->getBeforeTextDetails();
 $afterTextDetails = $block->getAfterTextDetails();
 ?>
@@ -43,7 +39,7 @@ $afterTextDetails = $block->getAfterTextDetails();
 
     <?php if ($block->isCmsBlockEnabled()): ?>
         <div class="cms-block">
-            <?= /* @noEscape */ $block->getCmsBlockDetails() ?>
+            <?= /** @noEscape */ $block->getCmsBlockDetails() ?>
         </div>
     <?php endif ?>
 
@@ -80,18 +76,15 @@ $afterTextDetails = $block->getAfterTextDetails();
     <?= $block->getAdditionalInfoHtml() ?>
 
     <div class="actions-toolbar">
-        <?php if ($block->isCustomerLoggedIn()): ?>
-            <a class="action secondary"
-               href="<?= $escaper->escapeUrl($block->getViewOrderUrl()) ?>">
-                <span><?= $escaper->escapeHtml(__('View Order')) ?></span>
-            </a>
-            <a class="action secondary"
-               href="<?= $escaper->escapeUrl($block->getPrintUrl()) ?>"
-               target="_blank">
-                <span><?= $escaper->escapeHtml(__('Print Order')) ?></span>
-            </a>
-        <?php endif; ?>
-
+        <a class="action secondary view-order"
+            href="<?= $escaper->escapeUrl($block->getViewOrderUrl()) ?>">
+            <span><?= $escaper->escapeHtml(__('View Order')) ?></span>
+        </a>
+        <a class="action secondary print-order"
+            href="<?= $escaper->escapeUrl($block->getPrintUrl()) ?>"
+            target="_blank">
+            <span><?= $escaper->escapeHtml(__('Print Order')) ?></span>
+        </a>
         <a class="action primary continue"
            href="<?= $escaper->escapeUrl($block->getContinueUrl()) ?>">
             <span><?= $escaper->escapeHtml(__('Continue Shopping')) ?></span>
