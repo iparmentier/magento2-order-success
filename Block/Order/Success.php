@@ -61,6 +61,20 @@ class Success extends Template
     }
 
     /**
+     * Prevent displaying if order is not populated or block is disabled
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        $order = $this->getOrder();
+        if (!$order || !$order->getIncrementId() || !$this->isEnabled()) {
+            return '';
+        }
+        return parent::_toHtml();
+    }
+
+    /**
      * Check if module is enabled
      *
      * @return bool
